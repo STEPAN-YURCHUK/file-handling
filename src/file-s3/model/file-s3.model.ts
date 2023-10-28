@@ -12,8 +12,8 @@ export class FileS3 extends Model<FileS3, FileS3CreationAttrs> {
 
     @Column({ type: DataType.STRING, allowNull: false })
     name: string;
-    
+
     @Column({ type: DataType.STRING, allowNull: false })
     url: string;
-    
+
 }

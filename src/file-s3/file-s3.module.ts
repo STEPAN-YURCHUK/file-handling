@@ -5,8 +5,9 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { FileS3 } from './model/file-s3.model';
 
 @Module({
-  controllers: [FileS3Controller],
-  providers: [FileS3Service],
-  imports: [SequelizeModule.forFeature([FileS3])]
+    controllers: [FileS3Controller],
+    providers: [FileS3Service],
+    imports: [SequelizeModule.forFeature([FileS3])]
 })
-export class FileS3Module {}
+
+export class FileS3Module { }

@@ -8,6 +8,7 @@ import { FileStorage } from './models/file-storage.model';
 
 @Injectable()
 export class FileStorageService {
+
     private readonly uploadPath = path.join(__dirname, '../../', 'uploads');
 
     constructor(@InjectModel(FileStorage) private fileStorageRepository: typeof FileStorage) {

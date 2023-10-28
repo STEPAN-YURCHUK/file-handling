@@ -12,11 +12,11 @@ export class FileStorage extends Model<FileStorage, FileStorageCreationAttrs> {
 
     @Column({ type: DataType.STRING, allowNull: false })
     name: string;
-    
+
     @Column({ type: DataType.STRING, allowNull: false })
     url_watch: string;
 
     @Column({ type: DataType.STRING, allowNull: false })
     url_download: string;
-    
+
 }
