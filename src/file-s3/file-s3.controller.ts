@@ -1,7 +1,8 @@
-import { Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Delete, Get, Param, Post, UploadedFile, UploadedFiles, UseInterceptors } from '@nestjs/common';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FileS3Service } from './file-s3.service';
+import { UploadFilesS3Dto } from './dto/upload-fileS3.dto';
 
 @ApiTags('file-s3')
 @Controller('file-s3')
@@ -12,25 +13,26 @@ export class FileS3Controller {
     }
 
     @Post('upload')
-    @UseInterceptors(FileInterceptor('file'))
-    uploadFileStatic(@UploadedFile() file: Express.Multer.File) {
-        const img = this.fileS3Service.uploadFileS3(file);
-        return img
+    @ApiConsumes('multipart/form-data')
+    @UseInterceptors(AnyFilesInterceptor())
+    uploadFileStatic(@Body() dto: UploadFilesS3Dto, @UploadedFiles() files: Express.Multer.File[]) {
+        const img = this.fileS3Service.uploadFileS3(files);
+        return img;
     }
 
     @Get('list')
     getAll() {
-        return this.fileS3Service.getAll()
+        return this.fileS3Service.getAll();
     }
 
     @Get('one/:id')
     getOne(@Param('id') id: number) {
-        return this.fileS3Service.getOne(id)
+        return this.fileS3Service.getOne(id);
     }
 
     @Delete('delete/:id')
     delete(@Param('id') id: number) {
-        return this.fileS3Service.deleteFileS3(id)
+        return this.fileS3Service.deleteFileS3(id);
     }
 
 }

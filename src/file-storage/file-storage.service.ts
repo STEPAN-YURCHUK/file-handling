@@ -47,7 +47,7 @@ export class FileStorageService {
                 url_watch: `http://localhost:3000/file-storage/watch/${filename}`,
                 url_download: `http://localhost:3000/file-storage/download/${filename}`
             }
-            await this.fileStorageRepository.create(FileData)
+            await this.fileStorageRepository.create(FileData);
 
             return filename;
         } catch (error) {
@@ -56,10 +56,10 @@ export class FileStorageService {
     }
 
     async deleteForTable(id: number) {
-        const file = await this.fileStorageRepository.findByPk(id)
-        await this.delete(file.name)
-        await file.destroy()
-        return true
+        const file = await this.fileStorageRepository.findByPk(id);
+        await this.delete(file.name);
+        await file.destroy();
+        return true;
     }
 
     async delete(fileName: string) {
@@ -72,11 +72,11 @@ export class FileStorageService {
     }
 
     async getOne(id: number) {
-        return await this.fileStorageRepository.findByPk(id)
+        return await this.fileStorageRepository.findByPk(id);
     }
 
     async list() {
-        return await this.fileStorageRepository.findAll()
+        return await this.fileStorageRepository.findAll();
     }
 
     private async createFolderIfNotExists(folderPath: string) {

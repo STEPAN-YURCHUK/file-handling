@@ -2,7 +2,8 @@ import { Body, Controller, Delete, Get, Param, Post, Response, UploadedFile, Use
 import { Response as Res } from 'express';
 import { FileStorageService } from './file-storage.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { UploadFilesStorageDto } from './dto/upload-fileStorage.dto';
 
 @ApiTags('file-storage')
 @Controller('file-storage')
@@ -13,9 +14,10 @@ export class FileStorageController {
     }
 
     @Post('upload')
+    @ApiConsumes('multipart/form-data')
     @UseInterceptors(FileInterceptor('file'))
-    uploadFileStorage(@UploadedFile() file: Express.Multer.File) {
-        return this.fileStorageService.upload(file)
+    uploadFileStorage(@Body() dto: UploadFilesStorageDto, @UploadedFile() file: Express.Multer.File) {
+        return this.fileStorageService.upload(file);
     }
 
     @Get('/watch/:fileName')
@@ -32,17 +34,17 @@ export class FileStorageController {
 
     @Get('one/:id')
     async getOne(@Param('id') id: number) {
-        return this.fileStorageService.getOne(id)
+        return this.fileStorageService.getOne(id);
     }
 
     @Get('list')
     async list() {
-        return this.fileStorageService.list()
+        return this.fileStorageService.list();
     }
 
     @Delete('delete/:id')
     async delete(@Param('id') id: number) {
-        return this.fileStorageService.deleteForTable(id)
+        return this.fileStorageService.deleteForTable(id);
     }
 
 }
